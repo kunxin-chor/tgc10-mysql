@@ -231,3 +231,32 @@ SELECT customerNumber, sum(amount) FROM payments
 group by customerNumber 
 order by sum(amount) DESC
 LIMIT 20
+
+/* same as above, but only show groups that have >100K in
+total payment made */
+SELECT customerNumber, sum(amount) FROM payments
+group by customerNumber 
+having sum(amount) > 100000
+order by sum(amount) DESC
+LIMIT 20
+
+/* Full-blown SQL statement */
+/* Above, but only for customers from USA */
+select customers.customerNumber, sum(amount) from payments JOIN customers
+	ON payments.customerNumber = customers.customerNumber 
+WHERE country = "USA"
+GROUP BY customers.customerNumber
+HAVING SUM(amount) > 50000
+ORDER BY sum(amount) DESC
+limit 5
+
+/*
+1. joins
+2. where
+3. group by
+4. having
+5. select
+6. order by
+7. limit
+
+*/
