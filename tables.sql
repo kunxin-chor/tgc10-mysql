@@ -62,6 +62,7 @@ insert into PetOwners (fname, lname, email) values
 /* update rows in a table */
 update PetOwners set fname='Jamie' where pet_id = 1;
 update PetOwners set lname="Kam" where pet_id = 1;
+/* set multiple columns at the same time *?
 update PetOwners set fname="Jamie", lname="Kam" where pet_id = 1;
 
 /* modify existing column */
