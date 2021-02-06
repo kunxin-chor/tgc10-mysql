@@ -125,3 +125,45 @@ select * from customers where country ="France" or country ="USA" and creditLimi
 /* find all customers with credit limit > 100000 and who are either France or USA */
 select * from customers where (country = "France" or country="USA") and creditLimit > 100000;
 
+/* find employees whose jobTitle begin with 'Sale'
+SELECT * FROM employees WHERE jobTitle like 'Sale%'
+
+/* find employees whose job title end with sales */
+select * from employees where jobTitle like '%Sales' 
+
+-- see all the employees with 'sales' in their title regardless of at the beginning or the end
+select * from employees where jobTitle like "%sales%"
+
+-- find all the orders where FedEx is referred to in the comments
+select * from orders where comments like '%fedex%'
+
+-- DATES
+-- retrieve the year, month and day of a date column
+SELECT orderNumber, YEAR(orderDate), MONTH(orderDate), DAY(orderDate) FROM orders;
+
+-- see all the orders made in the year 2003
+SELECT * from orders where YEAR(orderDate) = 2003;
+
+-- see all the orders made in the year 2003 and in the month of Nov
+select * from orders where YEAR(orderDate) = 2003 AND MONTH(orderDate) = 11
+
+-- see all the orders place between these two dates
+SELECT * from orders where orderDate BETWEEN 2003-01-01 AND 2003-02-28;
+
+-- see all orders that take place 17 years ago
+select * from orders where YEAR(CURDATE()) - YEAR(orderDate) = 17;
+
+/* see all the payments that take place on the first day of every month */
+SELECT * FROM payments where DAY(paymentDate) = 1;
+
+
+/* see all the payments that take place in the month of June, 2004 */
+select * from payments where year(paymentDate) = 2004 and month(paymentDate) = 6;
+
+/* see all the payments that take place between June 2003 and August 2003 */
+select * from payments where MONTH(paymentDate) >=6 and MONTH(paymentDate) <= 8 and YEAR(paymentDate)=2003;
+
+/* display all employees' office code, firstName and lastName whose office is in NYC */
+select employees.officeCode, firstName, lastName, city from employees join offices
+ ON employees.officeCode = offices.officeCode
+where city="NYC"
