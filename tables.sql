@@ -214,3 +214,20 @@ and display the address of each office */
 select offices.officeCode, addressLine1, addressLine2, count(*) from employees join offices on employees.officeCode = offices.officeCode
 where offices.officeCode=1 or offices.officeCode=2 or offices.officeCode=3
 group by offices.officeCode, addressLine1, addressLine2
+
+/* show all customers and the total amount they have paid,
+sorted in ascending order (from low to high) */
+SELECT customerNumber, sum(amount) FROM payments
+group by customerNumber 
+order by sum(amount) 
+
+/* the same as above, but sorted by descending order */
+SELECT customerNumber, sum(amount) FROM payments
+group by customerNumber 
+order by sum(amount) DESC
+
+/* same as above, but only the first 20 results */
+SELECT customerNumber, sum(amount) FROM payments
+group by customerNumber 
+order by sum(amount) DESC
+LIMIT 20
