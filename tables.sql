@@ -50,3 +50,26 @@ insert into Vets (fname, lname, office_number)
 
  /* select all the rows from a table */
  select * from Vets;
+
+insert into PetOwners (fname, lname, email) values ("jamie", "kam", "jamie@kam.com");
+
+/* insert many rows at one go */
+insert into PetOwners (fname, lname, email) values 
+    ("Harry", "Potter", "harry@somewhere.com"),
+    ("Charile", "Brown", "charilebrown@goodgrief.com"),
+    ("Mary", "Chan", "marychan@somewhere.com");
+
+/* update rows in a table */
+update PetOwners set fname='Jamie' where pet_id = 1;
+update PetOwners set lname="Kam" where pet_id = 1;
+update PetOwners set fname="Jamie", lname="Kam" where pet_id = 1;
+
+/* modify existing column */
+alter table PetOwners rename column pet_id to pet_owner_id;
+
+/* delete */
+/* ALWAYS MAKE SURE YOU HAVE THE CRITERA PART FOR THE DELETE FROM!!! */
+delete from PetOwners where pet_owner_id = 4;
+
+/* delete an entire table */
+drop table dummy;
