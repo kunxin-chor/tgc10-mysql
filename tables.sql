@@ -74,3 +74,15 @@ delete from PetOwners where pet_owner_id = 4;
 
 /* delete an entire table */
 drop table dummy;
+
+create table Pets (
+    pet_id int unsigned auto_increment primary key,
+    name varchar(50) not null,
+    pet_owner_id int unsigned not null,
+    foreign key (pet_owner_id) references PetOwners(pet_owner_id)
+) engine = innodb;
+
+/* insert in one pet named Muffin and the pet_owner_id is 1
+this means, the row with pet_onwer_id owns Muffin */
+insert into Pets (name, pet_owner_id) values ('Muffin', 1);
+insert into Pets (name, pet_owner_id) values ('Biscuit', 1);
