@@ -167,3 +167,50 @@ select * from payments where MONTH(paymentDate) >=6 and MONTH(paymentDate) <= 8 
 select employees.officeCode, firstName, lastName, city from employees join offices
  ON employees.officeCode = offices.officeCode
 where city="NYC"
+
+/** JOINS **/
+
+/* display the customerName of all customers and the first name, last name of their sales rep */
+SELECT customerName, customers.salesRepEmployeeNumber, lastName, firstName FROM customers join employees
+ON customers.salesRepEmployeeNumber = employees.EmployeeNumber
+
+/* display the customerName, and the contact person's last name and firstname and phone, and the first name, last name  and phone
+number of their respective sales rep */
+SELECT customerName, contactFirstName, contactLastName, customers.phone as "Customer Phone", firstName, lastName, offices.phone as "Office Phone", extension from customers JOIN employees ON 
+	customers.salesRepEmployeeNumber = employees.employeeNumber
+JOIN offices ON
+	employees.officeCode = offices.officeCode
+	
+/* count the number of employees in the employees table */
+-- SELECT COUNT(*) FROM employees;
+
+/* count how many sales rep there are in the employees table */
+-- SELECT * FROM employees where jobTitle = "Sales Rep"; 
+SELECT count(*) FROM employees where jobTitle = "Sales Rep"; 
+
+/* find the average credit limit of all my customers */
+SELECT AVG(creditLimit) FROM customers;
+
+/* find the max credit limit of all my customers */
+SELECT MAX(creditLimit) FROM customers;
+
+/* find the min credit limit of all my customers */
+SELECT MIN(creditLimit) FROM customers;
+
+/* find the sum of all the credit limit of all my customers */
+SELECT SUM(creditLimit) FROM customers;
+
+/* count how many employees in each office code */
+select officeCode, count(*) from employees
+group by officeCode
+
+/* count how many employees there are in each office
+and show the address of each office */
+select offices.officeCode, addressLine1, addressLine2, count(*) from employees join offices on employees.officeCode = offices.officeCode
+group by offices.officeCode, addressLine1, addressLine2
+
+/* count how many emplyoees there are in office code 1, 2 and 3
+and display the address of each office */
+select offices.officeCode, addressLine1, addressLine2, count(*) from employees join offices on employees.officeCode = offices.officeCode
+where offices.officeCode=1 or offices.officeCode=2 or offices.officeCode=3
+group by offices.officeCode, addressLine1, addressLine2
