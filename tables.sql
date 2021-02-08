@@ -274,4 +274,73 @@ create table Laptops (
   cpu_clock_speed float not null,
   video_card varchar(200) not null,
   price float not null
+) engine=innodb;
+
+-- create the database
+create database boardgamedb;
+
+use boardgamedb;
+
+create table boardgames (
+    boardgame_id int unsigned auto_increment primary key,
+    title varchar(200) not null,
+    play_time int not null, 
+    year_published int not null,
+    description text not null,
+    retail_price float not null
+) engine=innodb;
+
+insert into boardgames (title, play_time, year_published, description, retail_price)
+  values ("Saints Petersburg", 90, 2004, "Help Czar Peter builds the grandest city ever", 30);
+
+-- select all rows from the table
+select * from boardgames;
+select * from boardgames where true;
+
+-- insert 2 or more rows with the same statement
+insert into boardgames (title, play_time, year_published, description, retail_price)
+  values ("Stone Age", 90, 2008, "Score the most point as the headman of your tribe!", 50 ),
+  ("Quadropolis", 60, 2015, "Build the best city ever", 90);
+
+create table Salepersons(
+    id int unsigned auto_increment primary key,
+    name varchar(50) not null,
+    commission_rate float not null
+)engine=innodb; 
+
+create table Closed_deals(
+    id int unsigned auto_increment primary key,
+    deal_size float not null,
+    customer_name varchar(100) not null,
+    product_name varchar(100) not null,
+    salesperson_id int unsigned not null,
+    foreign key (salesperson_id) references Salepersons(id)
 )engine=innodb;
+
+-- insert the rows to create a relationship between Salesperson
+-- and Closed_deals
+
+insert into Salepersons (name, commission_rate) values ('Alan Tay', 0.05);
+insert into Closed_deals(deal_size, customer_name, product_name, salesperson_id)
+values (300000, "Phua Chua Kang", "Supercomputer", 1);
+
+insert into Closed_deals(deal_size, customer_name, product_name, salesperson_id)
+values (250000, "Moses Lim", "Cashless Vending Machine", 1);
+
+insert into Salepersons(name, commission_rate) values
+ ('Mandy Wikes', 0.09);
+
+-- see the name and commission rate for  all salesperson and the deals that they have closed
+select * from Salepersons join Closed_deals
+ ON Salepersons.id=salesperson_id;
+
+-- I want to see all the sales made by Alan Tay
+-- and also see the commission rate for Alan Tay
+select * from Salepersons join Closed_deals
+ ON Salepersons.id=salesperson_id
+WHERE Salepersons.id=1;
+
+insert into Closed_deals (deal_size, customer_name, product_name, salesperson_id)
+  values (4600000, 'Elon Musk', 'AI System', 2);
+
+update Closed_deals set deal_size = 460000 where id=3 ;
