@@ -344,3 +344,40 @@ insert into Closed_deals (deal_size, customer_name, product_name, salesperson_id
   values (4600000, 'Elon Musk', 'AI System', 2);
 
 update Closed_deals set deal_size = 460000 where id=3 ;
+
+-- TV show table
+create database tv_shows;
+
+use tv_shows;
+
+create table tv_series (
+    id int unsigned auto_increment primary key,
+    series_name varchar(45) not null,
+    plot_summary text not null
+)engine=innodb;
+
+CREATE TABLE episodes(
+    episode_id int unsigned auto_increment primary key not null,
+    title varchar(45) not null,
+    duration int not null,
+    synopsis text not null,
+    show_id int unsigned not null,
+    foreign key (show_id) references tv_series(id)
+);
+
+insert into tv_series (series_name, plot_summary)
+values ('Days of Our Lives', 'Long winded does not make sense'),
+       ('Star Trek: Discovery', 'Scientific mumblo-jumbo');
+
+insert into episodes (title, duration, synopsis, show_id)
+ values ("Episode 1: Jean fell in love with Dave", 180, "Jean met Dave at school and they both fell in love.", 1),
+        ("Episode 101: Jean met Dave MK2", 185, "Jean realized that the Dave she knew all along was actually the twin brother of the real Dave.", 1),
+        ("Episode 1: Michael Burnham starts a war", 240, "Michael hated Klingons and purposely started a war to kill them.", 2);
+
+-- Show all the series together with their episodes
+-- show only the tv series name and the title/duration of each episodes
+select series_name, title, duration from tv_series join episodes ON
+tv_series.id = episodes.show_id;
+
+
+
