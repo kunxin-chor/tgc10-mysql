@@ -260,3 +260,18 @@ limit 5
 7. limit
 
 */
+
+-- create a new database named `it_fair`
+create database it_fair;
+
+-- switch database
+use it_fair;
+
+create table Laptops (
+  laptop_id int unsigned auto_increment primary key,
+  model_name varchar(100) not null,
+  ram tinyint not null,
+  cpu_clock_speed float not null,
+  video_card varchar(200) not null,
+  price float not null
+)engine=innodb;
